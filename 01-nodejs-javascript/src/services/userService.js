@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+
 const createUserService = async (name, email, password) => {
     try {
         const hashPassword = await bcrypt.hash(password, saltRounds)
@@ -18,10 +19,41 @@ const createUserService = async (name, email, password) => {
     }
 }
 
+const loginService = async (email, password) => {
+    try {
+        // fetch user by email
+        const user = await User.findOne({email: email});
+        if(user){
+            const isMatchPassword = await bcrypt.compare(password, user.password);
+            if(!isMatchPassword){
+                return {
+                    EC: 2,
+                    EM: "Email/Password invalid"
+                }
+            }else{
+                // create an access token
+                return "create an access token"
+            }
+        }else{
+            return {
+                EC: 1,
+                EM: "Email/Password invalid"
+            }
+        }
+    
+
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
+
+
 
 
 
 
 module.exports = {
-    createUserService
+    createUserService, loginService
 }
