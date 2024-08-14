@@ -6,7 +6,7 @@ const saltRounds = 10;
 
 const createUserService = async (name, email, password) => {
     // check user exist
-    const user = User.findOne({email});
+    const user = await User.findOne({email});
     if(user) {
         console.log(">>> User exist, choose different email");
         return null;
@@ -76,7 +76,7 @@ const loginService = async (email, password) => {
 
 const getUserService = async () => {
     try {
-        let result = await User.find({})
+        let result = await User.find({}).select("-password")
         return result;
 
     } catch (error) {
