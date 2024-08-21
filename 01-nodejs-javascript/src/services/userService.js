@@ -85,10 +85,6 @@ const getUserService = async () => {
     }
 }
 
-
-
-
-
 module.exports = {
     createUserService, loginService, getUserService
 }

@@ -21,6 +21,7 @@ const getUserApi = () => {
     return axios.get(URL_API)
 }
 
+
 export {
-    createUserApi, loginApi, getUserApi
+    createUserApi, loginApi, getUserApi, 
 }
